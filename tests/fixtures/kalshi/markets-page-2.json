@@ -1,0 +1,19 @@
+{
+  "markets": [
+    {
+      "ticker": "KXBTC-150K",
+      "event_ticker": "KXBTC",
+      "title": "Will Bitcoin reach $150,000?",
+      "status": "open",
+      "close_time": "2026-12-31T23:59:00Z",
+      "yes_bid_dollars": "0.2500",
+      "yes_ask_dollars": "0.2800",
+      "last_price_dollars": "0.2700",
+      "volume_fp": "9950.00",
+      "volume_24h_fp": "440.00",
+      "open_interest_fp": "7200.00",
+      "liquidity_dollars": "31000.00"
+    }
+  ],
+  "cursor": ""
+}

@@ -1,0 +1,34 @@
+{
+  "markets": [
+    {
+      "ticker": "KXFED-SEP",
+      "event_ticker": "KXFED",
+      "title": "Will the Federal Reserve cut rates in September?",
+      "status": "open",
+      "close_time": "2026-09-30T18:00:00Z",
+      "yes_bid_dollars": "0.6100",
+      "yes_ask_dollars": "0.6300",
+      "last_price_dollars": "0.6200",
+      "volume_fp": "12450.00",
+      "volume_24h_fp": "820.00",
+      "open_interest_fp": "9100.00",
+      "liquidity_dollars": "45000.00",
+      "an_unmodeled_future_field": "ignored safely"
+    },
+    {
+      "ticker": "KXCPI-OVER3",
+      "event_ticker": "KXCPI",
+      "title": "Will CPI be over 3%?",
+      "status": "open",
+      "close_time": "2026-10-15T12:30:00Z",
+      "yes_bid_dollars": "0.4100",
+      "yes_ask_dollars": "0.4400",
+      "last_price_dollars": "0.4200",
+      "volume_fp": "5000.00",
+      "volume_24h_fp": "300.00",
+      "open_interest_fp": "2500.00",
+      "liquidity_dollars": "12000.00"
+    }
+  ],
+  "cursor": "next-page"
+}
