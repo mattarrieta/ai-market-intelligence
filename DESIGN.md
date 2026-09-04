@@ -843,6 +843,18 @@ At the end of every phase:
 4. Commit the completed phase separately.
 5. Ask for review before beginning the next phase.
 
-## 16. Immediate Next Decision
+## 16. Current Status and Decision Register
 
-The next action after this document is reviewed is **Phase 1 — Repository and contracts**. No market collector, cloud infrastructure, live model, agent framework, or frontend should be introduced during that phase.
+Phases 1 and 2 are complete. Phase 3 has a verified public Kalshi collector, normalized snapshots, local persistence, and bounded featured-market selection; its longer soak run remains pending. Phase 4 is the next implementation phase.
+
+Product choices that should remain configurable—including market categories, eligibility thresholds, watchlist size, detector calibration, agent budgets, and AWS cost controls—are tracked in [Product Decisions to Lock In](docs/PRODUCT-DECISIONS.md).
+
+The immediate build order is:
+
+1. Implement replay from recorded snapshots.
+2. Calculate deterministic rolling features.
+3. Emit reproducible price, volume, and liquidity incidents.
+4. Use observed distributions to calibrate the market-selector defaults.
+5. Lock the version-one market policy before enabling continuous live detection.
+
+This keeps the core detector exchange-independent and prevents an early category preference from becoming an architectural dependency.
