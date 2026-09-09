@@ -14,38 +14,41 @@ Turn normalized market history into reproducible features and incidents without 
 
 ## Current status
 
-Steps 1 and 2 are implemented with:
+Steps 1-5 are implemented:
 
-- Strict Pydantic validation at the recording boundary
-- Stable ordering by observation time, source, and ticker
-- A callback-based replay engine that is independent of detector code
-- A synthetic price-shock recording
-- Offline round-trip, ordering, empty-input, and malformed-input tests
+- Strict snapshot validation with stable event-time replay
 - Isolated rolling state for every source and ticker
 - Midpoint, spread, 30-second and 5-minute price changes
 - Non-negative volume deltas, short-window volume, and baseline z-scores
 - Five-minute volatility and liquidity decline
-- Explicit rejection of out-of-order snapshots
+- Warm-up protection before incident creation
+- Price-shock, volume-spike, spread-anomaly, and liquidity-shock rules
+- Deterministic incident identifiers and versioned detector policy
+- Per-market, per-detector cooldown suppression
+- Stable JSONL incident persistence for audit and comparison
+- Quiet, price, volume, and liquidity replay fixtures
 
-Steps 3-5 remain in progress.
+Thresholds are provisional defaults. They will be calibrated against observed market distributions before continuous live detection is enabled.
 
-## Run the replay foundation
+## Run an end-to-end detection replay
 
 ```powershell
-python -m market_intelligence.replay datasets/recorded-events/price-shock-v1.jsonl --show-features
+python -m market_intelligence.replay datasets/recorded-events/price-shock-v1.jsonl --show-features --incidents data/incidents.jsonl
 ```
+
+The command prints detected incidents and can persist deterministic JSONL output. Repeating it with the same recording and policy produces identical incident content.
 
 ## Important boundary
 
-Market selection is upstream configuration. Replay consumes normalized snapshots, so changing categories, activity thresholds, or watchlist size does not change replay or detector contracts.
+Market selection is upstream configuration. Replay and detection consume normalized snapshots, so changing categories, activity thresholds, or watchlist size does not change their contracts.
 
-Feature calculation is deterministic and stateful per market. Default windows and numerical floors are versioned policy inputs; observed market distributions will calibrate them before live detection is enabled.
+AI is also downstream. These rules create trustworthy incidents; a later bounded agent investigates why an incident may have occurred.
 
 ## Exit criteria
 
-- The same recording produces byte-for-byte equivalent incidents on repeated runs.
-- Out-of-order input is processed in deterministic event-time order.
-- Invalid snapshots fail with their exact recording line number.
-- Quiet recordings produce no incidents.
-- Price, volume, and liquidity fixtures trigger only their intended detector families.
-- Repeated detections inside the configured cooldown do not create duplicate incidents.
+- [x] The same recording produces byte-for-byte equivalent incidents on repeated runs.
+- [x] Out-of-order input is processed in deterministic event-time order.
+- [x] Invalid snapshots fail with their exact recording line number.
+- [x] Quiet recordings produce no incidents.
+- [x] Price, volume, and liquidity fixtures trigger only their intended detector families.
+- [x] Repeated detections inside the configured cooldown do not create duplicate incidents.

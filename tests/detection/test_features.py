@@ -48,10 +48,10 @@ def test_price_shock_fixture_produces_expected_features() -> None:
     assert features.spread == Decimal("0.04")
     assert features.price_change_30s is None
     assert features.price_change_5m == Decimal("0.22")
-    assert features.volume_delta == Decimal("120")
-    assert features.volume_30s == Decimal("120")
-    assert features.volume_zscore == Decimal("110")
-    assert features.liquidity_decline == (Decimal("510") - Decimal("300")) / Decimal("510")
+    assert features.volume_delta == Decimal("10")
+    assert features.volume_30s == Decimal("10")
+    assert features.volume_zscore == Decimal("0")
+    assert features.liquidity_decline == (Decimal("510") - Decimal("490")) / Decimal("510")
     assert features.volatility_5m is not None
     assert features.volatility_5m > Decimal(0)
 
