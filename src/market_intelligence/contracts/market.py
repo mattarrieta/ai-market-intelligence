@@ -26,14 +26,18 @@ class MarketEvent(ContractModel):
 
 
 class MarketFeatures(ContractModel):
+    sample_count: int = Field(default=1, ge=1)
     observed_at: datetime
     midpoint: Decimal | None = Field(default=None, ge=0, le=1)
     spread: Decimal | None = Field(default=None, ge=0, le=1)
     price_change_30s: Decimal | None = Field(default=None, ge=-1, le=1)
     price_change_5m: Decimal | None = Field(default=None, ge=-1, le=1)
     volume_30s: Decimal = Field(default=Decimal(0), ge=0)
+    volume_delta: Decimal = Field(default=Decimal(0), ge=0)
     volume_zscore: Decimal | None = None
     volatility_5m: Decimal | None = Field(default=None, ge=0)
+    liquidity_dollars: Decimal | None = Field(default=None, ge=0)
+    liquidity_decline: Decimal | None = Field(default=None, ge=0, le=1)
     yes_depth: Decimal | None = Field(default=None, ge=0)
     no_depth: Decimal | None = Field(default=None, ge=0)
     book_imbalance: Decimal | None = Field(default=None, ge=-1, le=1)

@@ -14,25 +14,32 @@ Turn normalized market history into reproducible features and incidents without 
 
 ## Current status
 
-Step 1 is implemented with:
+Steps 1 and 2 are implemented with:
 
 - Strict Pydantic validation at the recording boundary
 - Stable ordering by observation time, source, and ticker
 - A callback-based replay engine that is independent of detector code
 - A synthetic price-shock recording
 - Offline round-trip, ordering, empty-input, and malformed-input tests
+- Isolated rolling state for every source and ticker
+- Midpoint, spread, 30-second and 5-minute price changes
+- Non-negative volume deltas, short-window volume, and baseline z-scores
+- Five-minute volatility and liquidity decline
+- Explicit rejection of out-of-order snapshots
 
-Steps 2-5 remain in progress.
+Steps 3-5 remain in progress.
 
 ## Run the replay foundation
 
 ```powershell
-python -m market_intelligence.replay datasets/recorded-events/price-shock-v1.jsonl
+python -m market_intelligence.replay datasets/recorded-events/price-shock-v1.jsonl --show-features
 ```
 
 ## Important boundary
 
 Market selection is upstream configuration. Replay consumes normalized snapshots, so changing categories, activity thresholds, or watchlist size does not change replay or detector contracts.
+
+Feature calculation is deterministic and stateful per market. Default windows and numerical floors are versioned policy inputs; observed market distributions will calibrate them before live detection is enabled.
 
 ## Exit criteria
 
